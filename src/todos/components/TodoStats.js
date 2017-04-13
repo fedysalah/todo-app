@@ -21,10 +21,6 @@ export class TodoStats extends React.Component {
     }))
   }
 
-  static propTypes = {
-    todos: PropTypes.arrayOf(PropTypes.object)
-  }
-
   componentDidMount() {
     this.buildChart(this.props);
   }
