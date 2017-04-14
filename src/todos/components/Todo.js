@@ -5,7 +5,12 @@ import {
   statusTranslations
 } from './Statuses';
 
-export class Todo extends React.Component {
+
+import * as Actions from '../actions';
+
+import { connect } from 'react-redux';
+
+class Todo extends React.Component {
   constructor(props) {
     super(props);
     this.handleNextStatus = this.handleNextStatus.bind(this);
@@ -24,7 +29,8 @@ export class Todo extends React.Component {
     if (e && e.preventDefault) {
       e.preventDefault();
     }
-    this.props.nextStatus(this.props.todo);
+    //this.props.nextStatus(this.props.todo);
+    this.props.dispatch(Actions.nextStatusTodo(this.props.todo))
   }
 
   render () {
@@ -35,9 +41,11 @@ export class Todo extends React.Component {
           <p>{this.props.todo.description}</p>
         </div>
         <div className="card-action">
-          <a href="#" onClick={this.handleNextStatus}>{statusTranslations[this.props.todo.status]}</a>
+          <button type="button" className="btn" onClick={this.handleNextStatus}>{statusTranslations[this.props.todo.status]}</button>
         </div>
       </div>
     )
   }
 }
+
+export default Todo = connect()(Todo);

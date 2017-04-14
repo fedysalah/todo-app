@@ -1,7 +1,9 @@
 import React from 'react'
 import Loader from './Loader';
+import * as Actions from '../actions';
+import { connect } from 'react-redux';
 
-export class GeoPosition extends React.Component {
+class GeoPosition extends React.Component {
 
   constructor(props) {
     super(props)
@@ -11,24 +13,14 @@ export class GeoPosition extends React.Component {
   }
 
   componentDidMount() {
-
-      fetch('https://freegeoip.net/json/').then(response => {
-         return response.json()
-      }).then(json => {
-        setTimeout(
-         this.setState({
-           city: json.city
-         }), 2000);
-      }).catch(e => {
-         console.log('parsing failed', e)
-      })
+    this.props.dispatch(Actions.geo());
   }
 
   render () {
-    if (this.state.city) {
+    if (this.props.position) {
       return (
         <div>
-          Vous êtes situé à {this.state.city}
+          Vous êtes situé à {this.props.position}
         </div>
       )
     } else {
@@ -39,3 +31,11 @@ export class GeoPosition extends React.Component {
 
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    position: state.geo.position
+  }
+}
+
+export default GeoPosition = connect(mapStateToProps)(GeoPosition)

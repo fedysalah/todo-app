@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export class TodoForm extends React.Component {
+import * as Actions from '../actions';
+
+import { connect } from 'react-redux';
+
+
+class TodoForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,8 +18,8 @@ export class TodoForm extends React.Component {
 
   }
 
-  static propTypes = {
-    handleNewTodo: PropTypes.func.isRequired,
+  static contextTypes = {
+    router: PropTypes.object
   }
 
   handleInputChange(e) {
@@ -27,11 +32,11 @@ export class TodoForm extends React.Component {
     if (e && e.preventDefault) {
       e.preventDefault();
     }
-    this.props.handleNewTodo(this.state);
+    this.props.dispatch(Actions.addTodo(this.state));
     this.setState({
       title: '',
       description: ''
-    })
+    }, () => this.context.router.push({pathname: '/'}))
   }
 
   render () {
@@ -53,3 +58,5 @@ export class TodoForm extends React.Component {
     )
   }
 }
+
+export default TodoForm = connect()(TodoForm);

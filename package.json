@@ -6,7 +6,11 @@
     "chart.js": "^2.5.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "react-router": "^3.0.5"
+    "react-router": "^3.0.5",
+    "react-router-redux": "^4.0.5",
+    "redux": "^3.0.4",
+    "redux-thunk": "2.2.0",
+    "react-redux": "^5.0.2"
   },
   "devDependencies": {
     "react-scripts": "0.9.5"

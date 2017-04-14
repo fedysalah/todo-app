@@ -27,11 +27,11 @@ export class TodoFilter extends React.Component {
       <div>
         <h3>Filtres</h3>
         <input type="checkbox" id={NEW} checked={this.props.filters[NEW] ? 'checked': ''} onChange={this.handleOnChange}/>
-        <label htmlFor={NEW}>Nouveau</label>
+        <label htmlFor={NEW} style={{marginLeft: '30px'}} >Nouveau</label>
         <input type="checkbox" id={IN_PROGRESS} checked={this.props.filters[IN_PROGRESS] ? 'checked': ''} onChange={this.handleOnChange} />
-        <label htmlFor={IN_PROGRESS}>En cours</label>
+        <label htmlFor={IN_PROGRESS} style={{marginLeft: '30px'}} >En cours</label>
         <input type="checkbox" id={DONE} checked={this.props.filters[DONE] ? 'checked': ''} onChange={this.handleOnChange} />
-        <label htmlFor={DONE}>Terminé</label>
+        <label htmlFor={DONE} style={{marginLeft: '30px'}} >Terminé</label>
       </div>
     )
   }
