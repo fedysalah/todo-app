@@ -1,7 +1,8 @@
 import React from 'react';
 import {
-  Todo
-} from './Todo';
+  Todo,
+  NotFound
+} from './index';
 import Loader from './Loader';
 
 export class TodoDetail extends React.Component {
@@ -12,7 +13,9 @@ export class TodoDetail extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchTodo(this.props.params.todoId);
+    this.setState({
+      fetched: false,
+    }, () => this.props.fetchTodo(this.props.params.todoId));
   }
 
   componentWillReceiveProps(nextProps) {
@@ -20,7 +23,8 @@ export class TodoDetail extends React.Component {
       this.props.fetchTodo(this.props.params.todoId);
     } else {
       this.setState({
-        todo: nextProps.detailedTodo
+        todo: nextProps.detailedTodo,
+        fetched: true,
       })
     }
   }
@@ -34,9 +38,15 @@ export class TodoDetail extends React.Component {
         </div>
       )
     } else {
-      return (
-          <Loader />
-      )
+      if (this.state.fetched) {
+        return (
+          <NotFound />
+        )
+      } else {
+        return (
+            <Loader />
+        )
+      }
     }
   }
 }

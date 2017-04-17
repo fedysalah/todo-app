@@ -5,6 +5,7 @@ import {
   TodoHome,
   TodoNew,
   TodoDetail,
+  NotFound,
 } from './components';
 
 import { browserHistory } from 'react-router';
@@ -19,6 +20,7 @@ class TodoRoutedApp extends React.Component {
            <IndexRoute component={TodoHome} />
            <Route path="new" component={TodoNew} />
            <Route path="detail/:todoId" component={TodoDetail} />
+           <Route path="*" component={NotFound} />
          </Route>
      </Router>
    );
