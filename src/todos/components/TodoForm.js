@@ -1,7 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-export class TodoForm extends React.Component {
+import { connect } from 'react-redux';
+import {
+  addTodo
+} from '../actions';
+
+/*
+  Exemple où on connecte un composant pour avoir accès au props.dispatch et
+  pour ne plus avoir besoin d'une fonction callback passée par le parent.
+*/
+class TodoFormComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,10 +19,6 @@ export class TodoForm extends React.Component {
     this.handleCreateTodo = this.handleCreateTodo.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
 
-  }
-
-  static propTypes = {
-    handleNewTodo: PropTypes.func.isRequired,
   }
 
   handleInputChange(e) {
@@ -27,7 +31,7 @@ export class TodoForm extends React.Component {
     if (e && e.preventDefault) {
       e.preventDefault();
     }
-    this.props.handleNewTodo(this.state);
+    this.props.dispatch(addTodo(this.state));
     this.setState({
       title: '',
       description: ''
@@ -53,3 +57,5 @@ export class TodoForm extends React.Component {
     )
   }
 }
+
+export const TodoForm = connect()(TodoFormComponent)
