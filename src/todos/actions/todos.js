@@ -20,6 +20,13 @@ export const loadTodos = (todos) => {
   }
 }
 
+export const fetchingTodo = () => {
+  return {
+    type: 'FETCHING',
+    fetching: true,
+  }
+}
+
 export const fetchTodo = (id) => {
   return {
       type: 'FETCH_TODO',
