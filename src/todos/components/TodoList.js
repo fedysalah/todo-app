@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 
 import { Todo } from './Todo';
 
@@ -21,7 +22,11 @@ export class TodoList extends React.Component {
         <h3>Liste des TODOs</h3>
         {
           this.props.todos.map(todo => {
-            return <Todo key={todo.id} todo={todo} nextStatus={this.props.nextStatus}/>
+            return (
+              <Link key={todo.id} to={`/detail/${todo.id}`}>
+                <Todo todo={todo} nextStatus={this.props.nextStatus}/>
+              </Link>
+            )
           })
         }
       </div>

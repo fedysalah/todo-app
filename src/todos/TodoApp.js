@@ -1,10 +1,7 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import {
-  TodoStats,
-  TodoForm,
-  TodoFilter,
-  TodoList,
   GeoPosition,
 } from './components';
 
@@ -34,7 +31,23 @@ class TodoApp extends React.Component {
     this.handleFilterChange = this.handleFilterChange.bind(this);
     this.createTodo = this.createTodo.bind(this);
     this.handleNextStatus = this.handleNextStatus.bind(this);
+    this.fetchTodo = this.fetchTodo.bind(this);
   }
+
+
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
+
+  fetchTodo(id) {
+    this.setState((previousState, props) => {
+      return {
+        detailedTodo: previousState.todos.find(t => t.id === parseInt(id, 10))
+      }
+    });
+  }
+
 
   createTodo(newtodo) {
 
@@ -44,7 +57,9 @@ class TodoApp extends React.Component {
       return {
         todos: [...previousState.todos, newtodo],
       }
-    })
+    }, () => this.context.router.push({
+      pathname: '/'
+    }));
   }
 
   handleFilterChange(newfilter) {
@@ -69,18 +84,28 @@ class TodoApp extends React.Component {
     const todosToDisplay = this.state.todos.filter(
       todo => Object.keys(this.state.filters)
                 .filter(f => this.state.filters[f])
-                .includes(todo.status))
+                .includes(todo.status));
+
+    const childrenWithProps = React.Children.map(this.props.children,
+     (child) => React.cloneElement(child, {
+       handleNewTodo: this.createTodo,
+       todos: todosToDisplay,
+       filters: this.state.filters,
+       onFilterChange: this.handleFilterChange,
+       fetchTodo: this.fetchTodo,
+       detailedTodo: this.state.detailedTodo,
+       allTodos: this.state.todos,
+       nextStatus: this.handleNextStatus
+     })
+    );
     return (
       <div className="row">
-        <div className="col s4">
-          <GeoPosition />
-          <TodoForm handleNewTodo={this.createTodo}/>
-          <TodoStats todos={todosToDisplay}/>
+        <div className="col s12">
+          <div>
+            <GeoPosition />
+          </div>
         </div>
-        <div className="col s8">
-          <TodoFilter filters={this.state.filters} onFilterChange={this.handleFilterChange} />
-          <TodoList todos={todosToDisplay} nextStatus={this.handleNextStatus}/>
-        </div>
+        {childrenWithProps}
       </div>
     );
   }

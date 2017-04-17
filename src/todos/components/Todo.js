@@ -35,7 +35,7 @@ export class Todo extends React.Component {
           <p>{this.props.todo.description}</p>
         </div>
         <div className="card-action">
-          <a href="#" onClick={this.handleNextStatus}>{statusTranslations[this.props.todo.status]}</a>
+          <button type="button" className="btn" onClick={this.handleNextStatus}>{statusTranslations[this.props.todo.status]}</button>
         </div>
       </div>
     )
