@@ -6,11 +6,11 @@ export const statusTranslations = {
   [NEW]: 'Commencer',
   [IN_PROGRESS]: 'En cours',
   [DONE]: 'Terminé'
-}
+};
 export const statuses = [NEW, IN_PROGRESS, DONE];
 
 export const nextStatus = {
   [NEW]: IN_PROGRESS,
   [IN_PROGRESS]: DONE,
   [DONE]: DONE
-}
+};

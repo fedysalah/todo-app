@@ -1,41 +1,24 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 
 import {
-  statusTranslations
+  statusTranslations,
+  NEW
 } from './Statuses';
 
-export class Todo extends React.Component {
+export class Todo extends Component {
   constructor(props) {
     super(props);
-    this.handleNextStatus = this.handleNextStatus.bind(this);
   }
 
-  static propTypes = {
-    todo: PropTypes.shape({
-      id : PropTypes.number.isRequired,
-      title : PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      status : PropTypes.string.isRequired
-    })
-  }
-
-  handleNextStatus(e) {
-    if (e && e.preventDefault) {
-      e.preventDefault();
-    }
-    this.props.nextStatus(this.props.todo);
-  }
-
-  render () {
+  render() {
     return (
       <div className="card">
         <div className="card-content">
-          <span className="card-title">{this.props.todo.title}</span>
-          <p>{this.props.todo.description}</p>
+          <span className="card-title">titre</span>
+          <p>desc</p>
         </div>
         <div className="card-action">
-          <a href="#" onClick={this.handleNextStatus}>{statusTranslations[this.props.todo.status]}</a>
+          <a>{statusTranslations[NEW]}</a>
         </div>
       </div>
     )

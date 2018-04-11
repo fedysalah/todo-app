@@ -1,29 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 
-import { Todo } from './Todo';
+import {Todo} from './Todo';
 
-export class TodoList extends React.Component {
-
-  static propTypes = {
-    todos: PropTypes.arrayOf(PropTypes.shape({
-      id : PropTypes.number.isRequired,
-      title : PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      status : PropTypes.string.isRequired
-    })).isRequired,
-    nextStatus: PropTypes.func.isRequired
-  }
+export class TodoList extends Component {
 
   render () {
     return (
       <div>
         <h3>Liste des TODOs</h3>
-        {
-          this.props.todos.map(todo => {
-            return <Todo key={todo.id} todo={todo} nextStatus={this.props.nextStatus}/>
-          })
-        }
+         <Todo/>
       </div>
     );
   }
